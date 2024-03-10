@@ -50,7 +50,7 @@ const galleryList = document.querySelector('.gallery ul');
 images.forEach(image => {
   const { preview, original, description } = image;
 
-  // ... (створення розмітки)
+  // Создание разметки галереи
   const galleryItem = document.createElement('li');
   galleryItem.classList.add('gallery-item');
 
