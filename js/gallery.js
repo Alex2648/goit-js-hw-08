@@ -45,3 +45,27 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+const galleryList = document.querySelector('.gallery ul');
+
+images.forEach(image => {
+  const { preview, original, description } = image;
+
+  // ... (створення розмітки)
+  const galleryItem = document.createElement('li');
+  galleryItem.classList.add('gallery-item');
+
+  const galleryLink = document.createElement('a');
+  galleryLink.classList.add('gallery-link');
+  galleryLink.href = original;
+
+  const galleryImage = document.createElement('img');
+  galleryImage.classList.add('gallery-image');
+  galleryImage.src = preview;
+  galleryImage.dataset.source = original;
+  galleryImage.alt = description;
+
+  galleryLink.appendChild(galleryImage);
+  galleryItem.appendChild(galleryLink);
+
+  galleryList.appendChild(galleryItem);
+});
