@@ -77,3 +77,12 @@ galleryLinks.forEach(galleryLink => {
     console.log('Clicked image:', galleryLink.href); // For demonstration
   });
 });
+const lightbox = new basicLightbox({
+  // Options
+});
+document.querySelectorAll('.gallery-item a').forEach(galleryLink => {
+  galleryLink.addEventListener('click', event => {
+    event.preventDefault();
+    lightbox.show(event.target);
+  });
+});
