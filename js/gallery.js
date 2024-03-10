@@ -74,7 +74,6 @@ const galleryLinks = document.querySelectorAll('.gallery-link');
 galleryLinks.forEach(galleryLink => {
   galleryLink.addEventListener('click', event => {
     event.preventDefault();
-
-    // ... (інший код для показу зображення)
+    console.log('Clicked image:', galleryLink.href); // For demonstration
   });
 });
