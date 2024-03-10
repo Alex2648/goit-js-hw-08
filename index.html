@@ -2,17 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 8</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <ul class="gallery"></ul>
+    <title>BasicLightbox Example</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/basiclightbox@5.4.0/dist/basicLightbox.min.css"
     />
+  </head>
+  <body>
+    <h1>BasicLightbox Example</h1>
+    <p>Click on the image to open the modal window.</p>
+    <ul class="gallery">
+      <li class="gallery-item">
+        <a href="large-image.jpg" data-lightbox="image-1">
+          <img src="small-image.jpg" alt="Image description" />
+        </a>
+      </li>
+    </ul>
     <script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.4.0/dist/basicLightbox.min.js"></script>
+    <script>
+      // Initialize basicLightbox
+      const lightbox = new basicLightbox({
+        // Options
+      });
+
+      // Open modal window on image click
+      document.querySelectorAll('.gallery-item a').forEach(galleryLink => {
+        galleryLink.addEventListener('click', event => {
+          event.preventDefault();
+          lightbox.show(event.target);
+        });
+      });
+    </script>
   </body>
 </html>
