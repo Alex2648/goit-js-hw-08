@@ -69,3 +69,12 @@ images.forEach(image => {
 
   galleryList.appendChild(galleryItem);
 });
+const galleryLinks = document.querySelectorAll('.gallery-link');
+
+galleryLinks.forEach(galleryLink => {
+  galleryLink.addEventListener('click', event => {
+    event.preventDefault();
+
+    // ... (інший код для показу зображення)
+  });
+});
