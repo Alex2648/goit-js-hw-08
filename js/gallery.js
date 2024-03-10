@@ -45,44 +45,50 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
-const galleryList = document.querySelector('.gallery ul');
+const createMarkup = ({ preview, original, description }) =>
+  `<li class="gallery-item">
+    <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}" 
+          data-source="${original}" 
+          alt="${description}"
+        />
+    </a>
+  </li>`;
 
-images.forEach(image => {
-  const { preview, original, description } = image;
+const markup = images.map(createMarkup).join('');
 
-  // Создание разметки галереи
-  const galleryItem = document.createElement('li');
-  galleryItem.classList.add('gallery-item');
+const gallery = document.querySelector('.gallery');
+gallery.insertAdjacentHTML('afterbegin', markup);
 
-  const galleryLink = document.createElement('a');
-  galleryLink.classList.add('gallery-link');
-  galleryLink.href = original;
+function onImgClick(event) {
+  event.preventDefault();
 
-  const galleryImage = document.createElement('img');
-  galleryImage.classList.add('gallery-image');
-  galleryImage.src = preview;
-  galleryImage.dataset.source = original;
-  galleryImage.alt = description;
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
 
-  galleryLink.appendChild(galleryImage);
-  galleryItem.appendChild(galleryLink);
+  const instance = basicLightbox.create(
+    `
+    <img class="lagre-image" src="${event.target.dataset.source}" width="800" height="600">
+    `,
+    {
+      onShow: () => {
+        document.addEventListener('keydown', closeModal);
+      },
+      onClose: () => {
+        document.removeEventListener('keydown', closeModal);
+      },
+    },
+  );
+  instance.show();
 
-  galleryList.appendChild(galleryItem);
-});
-const galleryLinks = document.querySelectorAll('.gallery-link');
+  function closeModal(event) {
+    if (event.code === 'Escape') {
+      instance.close();
+    }
+  }
+}
 
-galleryLinks.forEach(galleryLink => {
-  galleryLink.addEventListener('click', event => {
-    event.preventDefault();
-    console.log('Clicked image:', galleryLink.href); // For demonstration
-  });
-});
-const lightbox = new basicLightbox({
-  // Options
-});
-document.querySelectorAll('.gallery-item a').forEach(galleryLink => {
-  galleryLink.addEventListener('click', event => {
-    event.preventDefault();
-    lightbox.show(event.target);
-  });
-});
+gallery.addEventListener('click', onImgClick);
